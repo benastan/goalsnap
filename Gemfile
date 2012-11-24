@@ -25,6 +25,11 @@ group :development do
   gem 'factory_girl_rails'
 end
 
+group :test do
+  gem 'shoulda-matchers'
+  gem 'pry'
+end
+
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
