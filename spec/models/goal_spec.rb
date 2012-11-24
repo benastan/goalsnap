@@ -1,5 +1,7 @@
 require 'spec_helper'
 
 describe Goal do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'has many goal rewards' do
+    should have_many :goal_rewards
+  end
 end
