@@ -1,0 +1,22 @@
+= form_for @tally do |f|
+  - if @tally.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@tally.errors.count, "error")} prohibited this tally from being saved:"
+      %ul
+        - @tally.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :axis_type
+    = f.text_field :axis_type
+  .field
+    = f.label :axis_id
+    = f.number_field :axis_id
+  .field
+    = f.label :user_id
+    = f.number_field :user_id
+  .field
+    = f.label :has_been_spent
+    = f.check_box :has_been_spent
+  .actions
+    = f.submit 'Save'

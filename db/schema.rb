@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121124221639) do
+ActiveRecord::Schema.define(:version => 20121124225510) do
 
   create_table "goal_rewards", :force => true do |t|
     t.integer  "goal_id"
@@ -33,6 +33,15 @@ ActiveRecord::Schema.define(:version => 20121124221639) do
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "tallies", :force => true do |t|
+    t.string   "axis_type"
+    t.integer  "axis_id"
+    t.integer  "user_id"
+    t.boolean  "has_been_spent"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "users", :force => true do |t|

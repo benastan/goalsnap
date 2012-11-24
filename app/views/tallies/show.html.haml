@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Axis type:
+  = @tally.axis_type
+%p
+  %b Axis:
+  = @tally.axis_id
+%p
+  %b User:
+  = @tally.user_id
+%p
+  %b Has been spent:
+  = @tally.has_been_spent
+
+= link_to 'Edit', edit_tally_path(@tally)
+\|
+= link_to 'Back', tallies_path
