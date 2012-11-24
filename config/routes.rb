@@ -1,4 +1,6 @@
 Goalsnap::Application.routes.draw do
+  resources :rewards
+
   resources :goals
 
   # The priority is based upon order of creation:
