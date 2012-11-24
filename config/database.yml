@@ -15,9 +15,10 @@
 development:
   adapter: postgresql
   encoding: unicode
+  host: localhost
   database: goalsnap_development
   pool: 5
-  username: goalsnap
+  username: postgres
   password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -41,9 +42,10 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
+  host: localhost
   database: goalsnap_test
   pool: 5
-  username: goalsnap
+  username: postgres
   password:
 
 production:
@@ -51,5 +53,5 @@ production:
   encoding: unicode
   database: goalsnap_production
   pool: 5
-  username: goalsnap
+  username: postgres
   password:
