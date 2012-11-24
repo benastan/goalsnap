@@ -1,4 +1,6 @@
 Goalsnap::Application.routes.draw do
+  resources :goal_rewards
+
   resources :rewards
 
   resources :goals

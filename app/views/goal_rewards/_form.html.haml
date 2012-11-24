@@ -1,0 +1,19 @@
+= form_for @goal_reward do |f|
+  - if @goal_reward.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@goal_reward.errors.count, "error")} prohibited this goal_reward from being saved:"
+      %ul
+        - @goal_reward.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :goal_id
+    = f.number_field :goal_id
+  .field
+    = f.label :reward_id
+    = f.number_field :reward_id
+  .field
+    = f.label :user_id
+    = f.number_field :user_id
+  .actions
+    = f.submit 'Save'

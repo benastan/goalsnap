@@ -1,0 +1,2 @@
+module GoalRewardsHelper
+end

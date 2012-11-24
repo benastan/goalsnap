@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Goal:
+  = @goal_reward.goal_id
+%p
+  %b Reward:
+  = @goal_reward.reward_id
+%p
+  %b User:
+  = @goal_reward.user_id
+
+= link_to 'Edit', edit_goal_reward_path(@goal_reward)
+\|
+= link_to 'Back', goal_rewards_path
