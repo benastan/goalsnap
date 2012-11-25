@@ -4,4 +4,9 @@ class Tally < ActiveRecord::Base
   belongs_to :axis, :polymorphic => true
 
   validates_presence_of :user_id, :axis_id, :axis_type
+
+  VALID_AXES = [ Reward, Goal ]
+  AXIS_COLLECTION = VALID_AXES.collect do |model|
+    model.all
+  end
 end
