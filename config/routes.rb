@@ -6,4 +6,9 @@ Goalsnap::Application.routes.draw do
   resources :rewards
 
   resources :goals
+  get 'login' => 'sessions#new', :as => :login
+  post 'login' => 'sessions#create', :as => :login
+  get 'logout' => 'sessions#delete', :as => :logout
+
+  match '/' => 'users#show', :as => :root
 end
