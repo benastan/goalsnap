@@ -2,9 +2,7 @@
 
 FactoryGirl.define do
   factory :user do
-    User.create(
-      email: 'bennyjbergstein+goalsnap.test.user@gmail.com',
-      first_name: 'ben'
-    )
+    email 'bennyjbergstein+goalsnap.test.user@gmail.com'
+    first_name 'ben'
   end
 end
