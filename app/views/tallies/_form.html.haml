@@ -6,17 +6,11 @@
         - @tally.errors.full_messages.each do |msg|
           %li= msg
 
+  - unless @tally.id
+    .field
+      = f.label @axis_type
+      = f.select :axis_id, :collection => @axis_collection.collect { |a| [a.title, a.id] }
   .field
-    = f.label :axis_type
-    = f.text_field :axis_type
-  .field
-    = f.label :axis_id
-    = f.number_field :axis_id
-  .field
-    = f.label :user_id
-    = f.number_field :user_id
-  .field
-    = f.label :has_been_spent
-    = f.check_box :has_been_spent
+    = f.hidden_field :user_id, :value => 1
   .actions
-    = f.submit 'Save'
+    = f.submit 'Submit'

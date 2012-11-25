@@ -26,6 +26,13 @@ class TalliesController < ApplicationController
   def new
     @tally = Tally.new
 
+    if params[:axis_type]
+      @axis_type = params[:axis_type]
+      @axis_collection = Kernel.const_get(@axis_type).all
+    else
+      @axis_collection = Tally::AXIS_COLLECTION
+    end
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @tally }
