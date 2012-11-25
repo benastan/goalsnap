@@ -4,6 +4,9 @@ Goalsnap::Application.routes.draw do
   resources :goal_rewards
 
   resources :rewards
+  resources :users do
+    resources :goal_rewards
+  end
 
   resources :goals
   get 'login' => 'sessions#new', :as => :login
