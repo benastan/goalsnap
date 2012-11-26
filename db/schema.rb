@@ -11,14 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121124225510) do
+ActiveRecord::Schema.define(:version => 20121126031147) do
 
   create_table "goal_rewards", :force => true do |t|
     t.integer  "goal_id"
     t.integer  "reward_id"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "reward_count"
+    t.integer  "goal_count"
   end
 
   create_table "goals", :force => true do |t|

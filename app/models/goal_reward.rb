@@ -1,5 +1,5 @@
 class GoalReward < ActiveRecord::Base
-  attr_accessible :goal_id, :reward_id, :user_id
+  attr_accessible :goal_id, :reward_id, :user_id, :goal_count, :reward_count
   belongs_to :goal
   belongs_to :reward
   belongs_to :user
