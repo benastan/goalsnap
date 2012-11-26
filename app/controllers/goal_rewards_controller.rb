@@ -1,8 +1,10 @@
 class GoalRewardsController < ApplicationController
+  before_filter :must_be_logged_in
+
   # GET /goal_rewards
   # GET /goal_rewards.json
   def index
-    @goal_rewards = GoalReward.all
+    @goal_rewards = current_user.goal_rewards
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +26,7 @@ class GoalRewardsController < ApplicationController
   # GET /goal_rewards/new
   # GET /goal_rewards/new.json
   def new
-    @goal_reward = GoalReward.new
+    @goal_reward = user.goal_rewards.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -80,4 +82,17 @@ class GoalRewardsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+  def user
+    unless @user
+      @user =  User.find(params[:user_id]) rescue nil
+      if @user.nil? && current_user
+        @user = current_user
+      end
+    end
+    @user
+  end
+  helper_method :user
 end
