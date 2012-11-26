@@ -1,9 +1,11 @@
-%h1 Listing goal_rewards
+%h1 Your Goals
 
 %table
   %tr
     %th Goal
+    %th Goal Count
     %th Reward
+    %th Reward Count
     %th User
     %th
     %th
@@ -12,7 +14,9 @@
   - @goal_rewards.each do |goal_reward|
     %tr
       %td= goal_reward.goal_id
+      %td= goal_reward.goal_count
       %td= goal_reward.reward_id
+      %td= goal_reward.reward_count
       %td= goal_reward.user_id
       %td= link_to 'Show', goal_reward
       %td= link_to 'Edit', edit_goal_reward_path(goal_reward)
@@ -20,4 +24,4 @@
 
 %br
 
-= link_to 'New Goal reward', new_goal_reward_path
+= link_to 'New Goal reward', new_user_goal_reward_path(current_user)
