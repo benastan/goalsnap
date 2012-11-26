@@ -1,3 +1,12 @@
 // Place all the styles related to the goal_rewards controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#new_reward_container, #new_goal_container {
+  display: none;
+
+  .error {
+    display: none;
+    color: red;
+  }
+}

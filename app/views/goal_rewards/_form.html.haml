@@ -7,13 +7,32 @@
           %li= msg
 
   .field
+    = f.number_field :goal_count
     = f.label :goal_id
-    = f.number_field :goal_id
+    = f.select :goal_id, :collection => Goal.all.collect {|g| [g.title, g.id] }
+    = link_to 'new', 'javascript:void(0)', :id => 'new_goal_link'
+    #new_goal_container
+      %p.error
+        Please enter a title and a description.
+      %div
+        %input#new_goal_title{ :type => :text, :name => :'goal[title]' }
+      %div
+        %textarea#new_goal_description{ :name => :'goal[description]' }
+      %input#submit_new_goal{ :type => :submit, :value => 'Create Goal' }
   .field
+    = f.number_field :reward_count
     = f.label :reward_id
-    = f.number_field :reward_id
+    = f.select :reward_id, :collection => Reward.all.collect {|r| [r.title, r.id] }
+    = link_to 'new', 'javascript:void(0)', :id => 'new_reward_link'
+    #new_reward_container
+      %p.error
+        Please enter a title and a description.
+      %div
+        %input#new_reward_title{:type => :text, :name => :'reward[text]' }
+      %div
+        %textarea#new_reward_description{ :name => :'reward[description]' }
+      %input#submit_new_reward{ :type => :submit, :value => 'Create Reward' }
   .field
-    = f.label :user_id
-    = f.number_field :user_id
+    = f.hidden_field :user_id
   .actions
     = f.submit 'Save'
