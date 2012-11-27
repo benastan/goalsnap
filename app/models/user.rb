@@ -8,4 +8,11 @@ class User < ActiveRecord::Base
     self.email == 'bennyjbergstein@gmail.com'
   end
 
+  def goals
+    goal_rewards.collect { |gr| gr.goal }
+  end
+
+  def rewards
+    goal_rewards.collect { |gr| gr.reward }
+  end
 end
