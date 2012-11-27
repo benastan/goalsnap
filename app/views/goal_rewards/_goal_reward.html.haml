@@ -11,7 +11,8 @@
       %strong Available Rewards
       %span.badge.badge-info= goal_reward.available_rewards
       %span.description Cash these in for rewards
-      %button= link_to 'Redeem', user_goal_reward_path(goal_reward.user, goal_reward, redeem: true), method: :put
+      - if goal_reward.available_rewards > 0
+        %button= link_to 'Redeem', user_goal_reward_path(goal_reward.user, goal_reward, redeem: true), method: :put
     %span.goals-to-reward
       %strong Goals to Next Reward
       %span.badge.badge-info= goal_reward.goals_to_reward
@@ -24,7 +25,8 @@
       %strong Unspent rewards
       %span.badge.badge-info= goal_reward.tallies.rewards.not_spent.count
       %span.description Remaining rewards you redeemed from achieving this goal
-      %button= link_to 'Spend', user_goal_reward_path(goal_reward.user, goal_reward, spend: true), method: :put
+      - if goal_reward.tallies.rewards.not_spent.count > 0
+        %button= link_to 'Spend', user_goal_reward_path(goal_reward.user, goal_reward, spend: true), method: :put
     %span.goals-applied
       %strong Times redeemed
       %span.badge.badge-info= goal_reward.tallies.goals.spent.count / goal_reward.goal_count
