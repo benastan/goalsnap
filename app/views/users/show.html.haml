@@ -1,6 +1,2 @@
 %p You have #{pluralize(current_user.goal_rewards.count, 'goals')}
-%button= link_to 'Tally a Reward', new_tally_path(axis_type: Reward)
-%button= link_to 'Tally a Goal', new_tally_path(axis_type: Goal)
-%p
-  =link_to 'My Goals', user_goal_rewards_path(current_user)
 
