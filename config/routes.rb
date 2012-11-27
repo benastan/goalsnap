@@ -1,9 +1,9 @@
 Goalsnap::Application.routes.draw do
   resources :tallies, :except => [ :edit, :delete, :index ]
 
-  resources :rewards, :only => [ :index, :create ]
+  resources :rewards, :only => [ :index, :create, :show ], :constraints => { :format => /json/ }
 
-  resources :goals, :only => [ :index, :create ]
+  resources :goals, :only => [ :index, :create, :show ], :constraints => { :format => /json/ }
 
   resources :users do
     resources :goal_rewards
