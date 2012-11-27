@@ -59,10 +59,29 @@ class GoalRewardsController < ApplicationController
   # PUT /goal_rewards/1.json
   def update
     @goal_reward = GoalReward.find(params[:id])
+    error = false
+
+    if params[:redeem]
+      if @goal_reward.reward_available?
+        @goal_reward.redeem_reward
+      else
+        error = true
+      end
+    elsif params[:spend]
+      if @goal_reward.unspent_rewards.count > 0
+        @goal_reward.spend_reward
+      else
+        error = true
+      end
+    elsif
+      unless @goal_reward.update_attributes(params[:goal_reward])
+        error = true
+      end
+    end
 
     respond_to do |format|
-      if @goal_reward.update_attributes(params[:goal_reward])
-        format.html { redirect_to @goal_reward, notice: 'Goal reward was successfully updated.' }
+      if error == false
+        format.html { redirect_to [@goal_reward.user, GoalReward], notice: 'Goal reward was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
