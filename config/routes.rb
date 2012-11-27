@@ -7,6 +7,7 @@ Goalsnap::Application.routes.draw do
 
   resources :users do
     resources :goal_rewards
+    resources :tallies
   end
 
   resources :goal_rewards
