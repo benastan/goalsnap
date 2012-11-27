@@ -4,4 +4,8 @@ class User < ActiveRecord::Base
   has_many :goal_rewards
   has_many :tallies
 
+  def admin?
+    self.email == 'bennyjbergstein@gmail.com'
+  end
+
 end
