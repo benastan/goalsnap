@@ -1,6 +1,6 @@
 class GoalReward < ActiveRecord::Base
   attr_accessible :goal_id, :reward_id, :user_id, :goal_count, :reward_count
-  has_many :tallies
+  has_many :tallies, :dependent => :destroy
   belongs_to :goal
   belongs_to :reward
   belongs_to :user
