@@ -16,4 +16,13 @@ class ApplicationController < ActionController::Base
   def must_be_logged_in
     redirect_to login_path unless current_user
   end
+
+  def home_path
+    if current_user
+      user_goal_rewards_path(current_user)
+    else
+      login_path
+    end
+  end
+  helper_method :home_path
 end

@@ -35,8 +35,9 @@ GoalRewardLogic.push ->
       model.save attr,
         complete: ->
           $option = $(document.createElement('option'))
-          $option.html(model.get('title')).val(model.id)
-          $select.append $option
+          $option.html(model.get('title'))
+          $option.attr('value', model.id)
+          $select.find('optgroup').append $option
           $option.attr 'selected', 'selected'
           $toggle_link.trigger 'click'
           $title.val ''

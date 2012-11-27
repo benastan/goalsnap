@@ -1,6 +1,7 @@
-%h1 Your Goals
+%h1 Your Targets
+
+= render :partial => 'goal_reward_description'
 
 = render :partial => 'goal_reward', :collection => @goal_rewards
 %br
 
-= link_to 'New Goal reward', new_user_goal_reward_path(current_user)
