@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121126031147) do
+ActiveRecord::Schema.define(:version => 20121126224925) do
 
   create_table "goal_rewards", :force => true do |t|
     t.integer  "goal_id"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20121126031147) do
     t.boolean  "has_been_spent"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.integer  "goal_reward_id"
   end
 
   create_table "users", :force => true do |t|
