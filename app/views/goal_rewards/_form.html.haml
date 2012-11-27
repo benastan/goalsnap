@@ -1,3 +1,6 @@
+%p
+  %span.badge.badge-info Hint:
+  Targets exist forever; you can earn them over and over. Create them in the formula of 'if I run x times I can eat out y times'.
 = form_for @goal_reward do |f|
   - if @goal_reward.errors.any?
     #error_explanation
@@ -6,11 +9,14 @@
         - @goal_reward.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
+  %fieldset.field
+    %legend Goal
+    %p How many of this goal do you need to redeem a reward?
+    %p Either use a preexisting goal, or create a new one.
     = f.number_field :goal_count
-    = f.label :goal_id
-    = f.select :goal_id, :collection => Goal.all.collect {|g| [g.title, g.id] }
-    = link_to 'new', 'javascript:void(0)', :id => 'new_goal_link'
+    = f.label :'which_goal?'
+    = f.select :goal_id, Goal.all.collect {|g| [g.title, g.id] }
+    = link_to 'create your own', 'javascript:void(0)', :id => 'new_goal_link'
     #new_goal_container
       %p.error
         Please enter a title and a description.
@@ -19,9 +25,12 @@
       %div
         %textarea#new_goal_description{ :name => :'goal[description]' }
       %input#submit_new_goal{ :type => :submit, :value => 'Create Goal' }
-  .field
+  %fieldset.field
+    %legend Reward
+    %p How many rewards do you get if you record enough goals?
+    %p Either use a preexisting goal, or create a new one.
     = f.number_field :reward_count
-    = f.label :reward_id
+    = f.label :'which_reward?'
     = f.select :reward_id, :collection => Reward.all.collect {|r| [r.title, r.id] }
     = link_to 'new', 'javascript:void(0)', :id => 'new_reward_link'
     #new_reward_container
