@@ -1,4 +1,6 @@
 class TalliesController < ApplicationController
+  before_filter :must_be_logged_in
+
   # GET /tallies
   # GET /tallies.json
   def index
@@ -24,14 +26,12 @@ class TalliesController < ApplicationController
   # GET /tallies/new
   # GET /tallies/new.json
   def new
-    @tally = Tally.new
+    @axis_type = params[:axis_type]
+    @axis_collection = user.send(@axis_type.underscore.pluralize.to_sym).uniq { |m| m.id }
 
-    if params[:axis_type]
-      @axis_type = params[:axis_type]
-      @axis_collection = Kernel.const_get(@axis_type).all
-    else
-      @axis_collection = Tally::AXIS_COLLECTION
-    end
+    @tally = user.tallies.new(
+      axis_type: @axis_type
+    )
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,6 +42,7 @@ class TalliesController < ApplicationController
   # GET /tallies/1/edit
   def edit
     @tally = Tally.find(params[:id])
+    @axis_type = @tally.axis_type
   end
 
   # POST /tallies
@@ -51,8 +52,8 @@ class TalliesController < ApplicationController
 
     respond_to do |format|
       if @tally.save
-        format.html { redirect_to @tally, notice: 'Tally was successfully created.' }
-        format.json { render json: @tally, status: :created, location: @tally }
+        format.html { redirect_to [user, GoalReward], notice: 'Tally was successfully created.' }
+        format.json { render json: @tally, status: :created, location: [user, @tally] }
       else
         format.html { render action: "new" }
         format.json { render json: @tally.errors, status: :unprocessable_entity }
@@ -83,8 +84,21 @@ class TalliesController < ApplicationController
     @tally.destroy
 
     respond_to do |format|
-      format.html { redirect_to tallies_url }
+      format.html { redirect_to user_tallies_url(user) }
       format.json { head :no_content }
     end
   end
+
+  private
+
+  def user
+    unless @user
+      @user = User.find params[:user_id] rescue nil
+      unless @user
+        @user = current_user
+      end
+    end
+    @user
+  end
+  helper_method :user
 end
