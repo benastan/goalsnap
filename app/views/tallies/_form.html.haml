@@ -1,4 +1,4 @@
-= form_for @tally do |f|
+= form_for [user, @tally] do |f|
   - if @tally.errors.any?
     #error_explanation
       %h2= "#{pluralize(@tally.errors.count, "error")} prohibited this tally from being saved:"
@@ -10,7 +10,9 @@
     .field
       = f.label @axis_type
       = f.select :axis_id, :collection => @axis_collection.collect { |a| [a.title, a.id] }
+      = f.hidden_field :axis_type
+      = f.hidden_field :axis_type, :name => :axis_type
   .field
-    = f.hidden_field :user_id, :value => 1
+    = f.hidden_field :user_id
   .actions
     = f.submit 'Submit'

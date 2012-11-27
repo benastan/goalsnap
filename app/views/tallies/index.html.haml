@@ -2,10 +2,9 @@
 
 %table
   %tr
-    %th Axis type
-    %th Axis
-    %th User
-    %th Has been spent
+    %th Type
+    %th Title
+    %th Redeemed?
     %th
     %th
     %th
@@ -13,13 +12,11 @@
   - @tallies.each do |tally|
     %tr
       %td= tally.axis_type
-      %td= tally.axis_id
+      %td= tally.axis.title
       %td= tally.user_id
-      %td= tally.has_been_spent
-      %td= link_to 'Show', tally
-      %td= link_to 'Edit', edit_tally_path(tally)
-      %td= link_to 'Destroy', tally, method: :delete, data: { confirm: 'Are you sure?' }
+      %td= tally.has_been_spent ? :yes : :no
+      - if current_user.admin?
+        %td= link_to 'Edit', edit_tally_path(tally)
+        %td= link_to 'Destroy', tally, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
-
-= link_to 'New Tally', new_tally_path
