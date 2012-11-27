@@ -1,0 +1,35 @@
+.goal-reward{ :id => "goal-reward-#{goal_reward.id}" }
+  .clearfix
+    %h1.goal-reward-goal
+      %span.goal-title= goal_reward.goal.title
+      %span.goal-count.badge.badge-success= goal_reward.goal_count
+    %h2.goal-reward-reward
+      %span.reward-title= goal_reward.reward.title
+      %span.reward-count.badge.badge-warning= goal_reward.reward_count
+  .goal-reward-info
+    %span.available-rewards
+      %strong Available Rewards
+      %span.badge.badge-info= goal_reward.available_rewards
+      %span.description Cash these in for rewards
+      %button= link_to 'Redeem', user_goal_reward_path(goal_reward.user, goal_reward, redeem: true), method: :put
+    %span.goals-to-reward
+      %strong Goals to Next Reward
+      %span.badge.badge-info= goal_reward.goals_to_reward
+      %span.description How many goals you need to record to get a reward
+    %span.goals-not-spent
+      %strong Goals to spend
+      %span.badge.badge-info= goal_reward.tallies.goals.not_spent.count
+      %span.description Applicable towards rewards
+    %span.rewards-not-spent
+      %strong Unspent rewards
+      %span.badge.badge-info= goal_reward.tallies.rewards.not_spent.count
+      %span.description Remaining rewards you redeemed from achieving this goal
+      %button= link_to 'Spend', user_goal_reward_path(goal_reward.user, goal_reward, spend: true), method: :put
+    %span.goals-applied
+      %strong Times redeemed
+      %span.badge.badge-info= goal_reward.tallies.goals.spent.count / goal_reward.goal_count
+  .goal-reward.controls
+    %td= link_to 'Show', goal_reward
+    %td= link_to 'Edit', edit_goal_reward_path(goal_reward)
+    %td= link_to 'Destroy', goal_reward, method: :delete, data: { confirm: 'Are you sure?' }
+

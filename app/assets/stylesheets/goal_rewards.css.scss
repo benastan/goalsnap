@@ -2,11 +2,64 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import 'bootstrap/mixins';
+
 #new_reward_container, #new_goal_container {
   display: none;
 
   .error {
     display: none;
     color: red;
+  }
+}
+
+.goal-reward {
+  width: 300px;
+  margin-left: 15px;
+  padding: 3px;
+  border-radius: 2px;
+  border: 1px solid #e3e3e3;
+  float: left;
+  background-color: #efefef;
+
+  h1, h2 {
+    float: left;
+    padding: 5%;
+    border-radius: 5px;
+    position: relative;
+    line-height: 1.05em;
+  }
+
+  h1 {
+    background: #ccc;
+    width: 47%;
+    font-size: 1.4em;
+  }
+
+  h2 {
+    font-size: 1.2em;
+    background: #ddd;
+    width: 35%;
+    margin-left: -2%;
+    top: 10px;
+  }
+
+  .goal-reward-info {
+    margin-left: -6%;
+
+    > span {
+      width: 27%;
+      float: left;
+      margin-left: 6%;
+    }
+
+    .label {
+      font-size: .9em;
+    }
+
+    .description {
+      font-size: .8em;
+      display: inline-block;
+    }
   }
 }

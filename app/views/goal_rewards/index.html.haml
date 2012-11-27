@@ -1,27 +1,6 @@
 %h1 Your Goals
 
-%table
-  %tr
-    %th Goal
-    %th Goal Count
-    %th Reward
-    %th Reward Count
-    %th User
-    %th
-    %th
-    %th
-
-  - @goal_rewards.each do |goal_reward|
-    %tr
-      %td= goal_reward.goal_id
-      %td= goal_reward.goal_count
-      %td= goal_reward.reward_id
-      %td= goal_reward.reward_count
-      %td= goal_reward.user_id
-      %td= link_to 'Show', goal_reward
-      %td= link_to 'Edit', edit_goal_reward_path(goal_reward)
-      %td= link_to 'Destroy', goal_reward, method: :delete, data: { confirm: 'Are you sure?' }
-
+= render :partial => 'goal_reward', :collection => @goal_rewards
 %br
 
 = link_to 'New Goal reward', new_user_goal_reward_path(current_user)
