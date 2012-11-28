@@ -12,6 +12,9 @@
             %ul.nav
               %li= link_to 'Home', home_path
               %li= link_to 'My Targets', user_goal_rewards_path(current_user)
+              - if current_user.admin?
+                %li= link_to 'Manage goals', Goal
+                %li= link_to 'Manage rewards', Reward
             %ul.nav.pull-right
               %li
                 %span.btn= link_to 'New Target', new_user_goal_reward_path(current_user)

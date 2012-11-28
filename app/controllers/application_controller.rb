@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
     redirect_to login_path unless current_user
   end
 
+  def must_be_admin
+    redirect_to home_path unless current_user.admin?
+  end
+
   def home_path
     if current_user
       user_goal_rewards_path(current_user)
