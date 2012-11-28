@@ -18,8 +18,9 @@
             %ul.nav.pull-right
               %li
                 %span.btn= link_to 'New Target', new_user_goal_reward_path(current_user)
-              %li
-                %span.btn= link_to 'Record a Goal', new_user_tally_path(current_user, axis_type: Goal)
+              - unless current_user.goal_rewards.empty?
+                %li
+                  %span.btn= link_to 'Record a Goal', new_user_tally_path(current_user, axis_type: Goal)
               %li
                 = link_to 'Log out', logout_path
     .container
