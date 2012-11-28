@@ -1,4 +1,9 @@
-%h1 Your Targets
+%p#notice= notice
+
+- if user == current_user
+  %h1 Your Targets
+- else
+  %h1 #{user.first_name.capitalize}'s Targets
 
 = render :partial => 'goal_reward_description'
 

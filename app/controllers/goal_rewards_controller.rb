@@ -4,7 +4,7 @@ class GoalRewardsController < ApplicationController
   # GET /goal_rewards
   # GET /goal_rewards.json
   def index
-    @goal_rewards = current_user.goal_rewards
+    @goal_rewards = user.goal_rewards
 
     respond_to do |format|
       format.html # index.html.erb
