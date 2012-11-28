@@ -62,7 +62,7 @@ class GoalRewardsController < ApplicationController
     error = false
 
     if params[:redeem]
-      if @goal_reward.reward_available?
+      if @goal_reward.available_rewards?
         @goal_reward.redeem_reward
       else
         error = true
