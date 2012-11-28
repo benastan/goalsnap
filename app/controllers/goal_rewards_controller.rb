@@ -46,7 +46,7 @@ class GoalRewardsController < ApplicationController
 
     respond_to do |format|
       if @goal_reward.save
-        format.html { redirect_to @goal_reward, notice: 'Goal reward was successfully created.' }
+        format.html { redirect_to [@goal_reward.user, GoalReward], notice: 'Goal reward was successfully created.' }
         format.json { render json: @goal_reward, status: :created, location: @goal_reward }
       else
         format.html { render action: "new" }
