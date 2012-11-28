@@ -7,6 +7,14 @@
 
 = render :partial => 'goal_reward_description'
 
-= render :partial => 'goal_reward', :collection => @goal_rewards
+- unless @goal_rewards.empty?
+  = render :partial => 'goal_reward', :collection => @goal_rewards
+- else
+  - if user == current_user
+    %p You don't have any targets.
+    %p
+      =link_to 'Create One', new_user_goal_reward_path(current_user), :class => 'btn'
+  - else
+    %p #{user.first_name} has no targets.
 %br
 

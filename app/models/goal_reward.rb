@@ -23,8 +23,13 @@ class GoalReward < ActiveRecord::Base
     user.tallies.goals.not_spent.where(:axis_id => goal_id).count
   end
 
-  def reward_available?
+  def available_rewards?
     available_rewards > 0
+  end
+
+  def reward_available?
+    puts 'deprecated', binding
+    available_rewards?
   end
 
   def available_rewards

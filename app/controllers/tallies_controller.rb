@@ -28,10 +28,10 @@ class TalliesController < ApplicationController
   def new
     @axis_type = params[:axis_type]
     @axis_collection = user.send(@axis_type.underscore.pluralize.to_sym).uniq { |m| m.id }
+    attr = params[:tally] || {}
+    attr[:axis_type] = @axis_type
 
-    @tally = user.tallies.new(
-      axis_type: @axis_type
-    )
+    @tally = user.tallies.new attr
 
     respond_to do |format|
       format.html # new.html.erb
@@ -52,7 +52,7 @@ class TalliesController < ApplicationController
 
     respond_to do |format|
       if @tally.save
-        format.html { redirect_to [user, GoalReward], notice: 'Tally was successfully created.' }
+        format.html { redirect_to [user, GoalReward], notice: "Your goal has been recorded#{reward_earned? ? ' and you earned a reward!' : '.'}" }
         format.json { render json: @tally, status: :created, location: [user, @tally] }
       else
         format.html { render action: "new" }
