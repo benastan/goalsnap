@@ -28,10 +28,10 @@ class TalliesController < ApplicationController
   def new
     @axis_type = params[:axis_type]
     @axis_collection = user.send(@axis_type.underscore.pluralize.to_sym).uniq { |m| m.id }
+    attr = params[:tally] || {}
+    attr[:axis_type] = @axis_type
 
-    @tally = user.tallies.new(
-      axis_type: @axis_type
-    )
+    @tally = user.tallies.new attr
 
     respond_to do |format|
       format.html # new.html.erb
