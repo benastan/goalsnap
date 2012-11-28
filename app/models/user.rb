@@ -15,4 +15,8 @@ class User < ActiveRecord::Base
   def rewards
     goal_rewards.collect { |gr| gr.reward }
   end
+
+  def available_rewards
+    goal_rewards.map { |gr| gr.available_rewards }.reduce { |a, b| a + b }
+  end
 end

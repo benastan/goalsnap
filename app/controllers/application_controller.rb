@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter {
+    @total_user_rewards = current_user.available_rewards if current_user
+  }
 
   private
 
@@ -29,4 +32,8 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :home_path
+
+  def reward_earned?
+    current_user.available_rewards > @total_user_rewards if current_user
+  end
 end
