@@ -1,4 +1,8 @@
 class RewardsController < ApplicationController
+  before_filter :must_be_logged_in
+  before_filter :must_be_admin, :except => :create
+  before_filter { redirect_to root_path, flash: 'forbidden' unless current_user.admin? or request.format == :json }
+
   # GET /rewards
   # GET /rewards.json
   def index

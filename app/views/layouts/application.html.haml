@@ -1,22 +1,28 @@
 !!!
-%html
+%html#goalsnap
   %head
     %title Goalsnap
     = stylesheet_link_tag    "application", :media => "all"
     = csrf_meta_tags
-  %body
-    = yield
+  %body{ :id => params[:controller], :class => "#{params[:action]} #{yield :body_class}" }
     - if current_user
-      %nav#primary
-        %ul
-          %li
-            = link_to 'Home', home_path
-          %li
-            = link_to 'My Targets', user_goal_rewards_path(current_user)
-          %li
-            %button= link_to 'New Target', new_user_goal_reward_path(current_user)
-          %li
-            %button= link_to 'Record a Goal', new_user_tally_path(current_user, axis_type: Goal)
-          %li
-            = link_to 'Log out', logout_path
+      .navbar
+        .navbar-inner
+          %nav#primary
+            %ul.nav
+              %li= link_to 'Home', home_path
+              %li= link_to 'My Targets', user_goal_rewards_path(current_user)
+              - if current_user.admin?
+                %li= link_to 'Manage goals', Goal
+                %li= link_to 'Manage rewards', Reward
+            %ul.nav.pull-right
+              %li
+                %span.btn= link_to 'New Target', new_user_goal_reward_path(current_user)
+              - unless current_user.goal_rewards.empty?
+                %li
+                  %span.btn= link_to 'Record a Goal', new_user_tally_path(current_user, axis_type: Goal)
+              %li
+                = link_to 'Log out', logout_path
+    .container
+      = yield
     = javascript_include_tag "application"

@@ -4,7 +4,7 @@ class GoalRewardsController < ApplicationController
   # GET /goal_rewards
   # GET /goal_rewards.json
   def index
-    @goal_rewards = current_user.goal_rewards
+    @goal_rewards = user.goal_rewards
 
     respond_to do |format|
       format.html # index.html.erb
@@ -46,7 +46,7 @@ class GoalRewardsController < ApplicationController
 
     respond_to do |format|
       if @goal_reward.save
-        format.html { redirect_to @goal_reward, notice: 'Goal reward was successfully created.' }
+        format.html { redirect_to [@goal_reward.user, GoalReward], notice: 'Goal reward was successfully created.' }
         format.json { render json: @goal_reward, status: :created, location: @goal_reward }
       else
         format.html { render action: "new" }
@@ -62,7 +62,7 @@ class GoalRewardsController < ApplicationController
     error = false
 
     if params[:redeem]
-      if @goal_reward.reward_available?
+      if @goal_reward.available_rewards?
         @goal_reward.redeem_reward
       else
         error = true

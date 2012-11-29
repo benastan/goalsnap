@@ -1,4 +1,8 @@
 class GoalsController < ApplicationController
+  before_filter :must_be_logged_in
+  before_filter :must_be_admin, :except => [ :create, :index, :show ]
+  before_filter { redirect_to root_path, flash: 'forbidden' unless current_user.admin? or request.format == :json }
+
   # GET /goals
   # GET /goals.json
   def index

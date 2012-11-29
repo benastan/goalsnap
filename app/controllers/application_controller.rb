@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter {
+    @total_user_rewards = current_user.available_rewards if current_user
+  }
 
   private
 
@@ -17,6 +20,10 @@ class ApplicationController < ActionController::Base
     redirect_to login_path unless current_user
   end
 
+  def must_be_admin
+    redirect_to home_path unless current_user.admin?
+  end
+
   def home_path
     if current_user
       user_goal_rewards_path(current_user)
@@ -25,4 +32,8 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :home_path
+
+  def reward_earned?
+    current_user.available_rewards > @total_user_rewards if current_user
+  end
 end

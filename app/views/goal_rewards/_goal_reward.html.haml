@@ -1,37 +1,31 @@
 .goal-reward{ :id => "goal-reward-#{goal_reward.id}" }
-  .clearfix
-    %h1.goal-reward-goal
-      %span.goal-title= goal_reward.goal.title
-      %span.goal-count.badge.badge-success= goal_reward.goal_count
+  %header.clearfix
     %h2.goal-reward-reward
-      %span.reward-title= goal_reward.reward.title
       %span.reward-count.badge.badge-warning= goal_reward.reward_count
-  .goal-reward-info
-    %span.available-rewards
-      %strong Available Rewards
-      %span.badge.badge-info= goal_reward.available_rewards
-      %span.description Cash these in for rewards
-      - if goal_reward.available_rewards > 0
-        %button= link_to 'Redeem', user_goal_reward_path(goal_reward.user, goal_reward, redeem: true), method: :put
-    %span.goals-to-reward
-      %strong Goals to Next Reward
-      %span.badge.badge-info= goal_reward.goals_to_reward
-      %span.description How many goals you need to record to get a reward
-    %span.goals-not-spent
-      %strong Goals to spend
-      %span.badge.badge-info= goal_reward.tallies.goals.not_spent.count
-      %span.description Applicable towards rewards
-    %span.rewards-not-spent
-      %strong Unspent rewards
-      %span.badge.badge-info= goal_reward.tallies.rewards.not_spent.count
-      %span.description Remaining rewards you redeemed from achieving this goal
-      - if goal_reward.tallies.rewards.not_spent.count > 0
-        %button= link_to 'Spend', user_goal_reward_path(goal_reward.user, goal_reward, spend: true), method: :put
-    %span.goals-applied
-      %strong Times redeemed
-      %span.badge.badge-info= goal_reward.tallies.goals.spent.count / goal_reward.goal_count
-  .goal-reward.controls
-    %td= link_to 'Show', goal_reward
-    %td= link_to 'Edit', edit_goal_reward_path(goal_reward)
-    %td= link_to 'Destroy', goal_reward, method: :delete, data: { confirm: 'Are you sure?' }
+      %span.reward-title= goal_reward.reward.title
+    %h1.goal-reward-goal
+      %span.goal-count.badge.badge-success= goal_reward.goal_count
+      %span.goal-title= goal_reward.goal.title
+  .goal-reward-info.clearfix
+    .column
+      - goal_reward_stat 'available-rewards', goal_reward.available_rewards, 'Available Rewards', 'Cash these in for rewards' do
+        - if goal_reward.available_rewards? and current_user.goal_rewards.include?(goal_reward)
+          = link_to 'Redeem', user_goal_reward_path(goal_reward.user, goal_reward, redeem: true), method: :put, class: 'btn btn-small'
+      - goal_reward_stat 'rewards-not-spent', goal_reward.tallies.rewards.not_spent.count, 'Unspent rewards', 'Remaining rewards you redeemed from achieving this goal' do
+        - unless goal_reward.tallies.rewards.not_spent.empty?
+          - if current_user.goal_rewards.include? goal_reward
+            = link_to 'Spend', user_goal_reward_path(goal_reward.user, goal_reward, spend: true), method: :put, class: 'btn btn-small'
+    .column
+      - goal_reward_stat 'goals-to-reward', goal_reward.goals_to_reward, 'Goals to Next Reward', 'How many goals you need to record to get a reward'
+      - goal_reward_stat 'goals-applied', goal_reward.tallies.goals.spent.count / goal_reward.goal_count, 'Times redeemed'
+    .column
+      - goal_reward_stat 'goals-not-spent', goal_reward.tallies.goals.not_spent.count, 'Goals to spend', 'Applicable towards rewards'
+      - goal_reward_stat 'goals-recorded', goal_reward.goal.tallies.where(:user_id => goal_reward.user.id).count, 'Goals Recorded' do
+        - if current_user.goal_rewards.include? goal_reward
+          = link_to 'Record Goal', new_user_tally_path(goal_reward.user, :axis_type => :Goal, :'tally[axis_id]' => goal_reward.goal.id), :class => 'btn btn-small'
+
+  - if current_user.goal_rewards.include? goal_reward
+    .goal-reward-controls.controls
+      %td= link_to 'Edit', edit_goal_reward_path(goal_reward)
+      %td= link_to 'Destroy', goal_reward, method: :delete, data: { confirm: 'Are you sure?' }
 
